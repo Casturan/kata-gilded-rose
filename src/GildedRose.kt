@@ -8,20 +8,23 @@ class GildedRose(var items: Array<Item>) {
   private val minQuality = 0
   private val doubleQualityThreshold = 10
   private val tripleQualityThreshold = 5
+  private val tripleRate = 3
+  private val doubleRate = 2
+  private val normalRate = 1
 
   fun updateQuality() {
     items.filter { it.name != sulfuras }
         .forEach { item ->
           decreaseSellIn(item)
           when (item.name) {
-            brie -> increaseItemQuality(item, calculateChangeAmount(item))
+            brie -> increaseItemQuality(item, qualityChangeRate(item))
             backstagePass -> updateBackstageQuality(item)
-            else -> decreaseItemQuality(item, calculateChangeAmount(item))
+            else -> decreaseItemQuality(item, qualityChangeRate(item))
           }
         }
   }
 
-  private fun calculateChangeAmount(item: Item) = if (isExpired(item)) 2 else 1
+  private fun qualityChangeRate(item: Item) = if (isExpired(item)) doubleRate else normalRate
 
   private fun isExpired(item: Item) = item.sellIn < 0
 
@@ -30,19 +33,19 @@ class GildedRose(var items: Array<Item>) {
       item.quality = minQuality
     } else {
       increaseItemQuality(item, when {
-        item.sellIn < tripleQualityThreshold -> 3
-        item.sellIn < doubleQualityThreshold -> 2
-        else -> 1
+        item.sellIn < tripleQualityThreshold -> tripleRate
+        item.sellIn < doubleQualityThreshold -> doubleRate
+        else -> normalRate
       })
     }
   }
 
-  private fun increaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.min(maxQuality, item.quality + (1 * amount))
+  private fun increaseItemQuality(item: Item, increaseRate: Int) {
+    item.quality = Math.min(maxQuality, item.quality + (1 * increaseRate))
   }
 
-  private fun decreaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.max(minQuality, item.quality - (1 * amount))
+  private fun decreaseItemQuality(item: Item, decreaseRate: Int) {
+    item.quality = Math.max(minQuality, item.quality - (1 * decreaseRate))
   }
 
   private fun decreaseSellIn(item: Item) {
