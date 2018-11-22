@@ -2,17 +2,18 @@ package com.gildedrose
 
 class GildedRose(var items: Array<Item>) {
 
-  private val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
-  private val SULFURAS = "Sulfuras, Hand of Ragnaros"
-  private val BRIE = "Aged Brie"
+  private val backstagePass = "Backstage passes to a TAFKAL80ETC concert"
+  private val sulfuras = "Sulfuras, Hand of Ragnaros"
+  private val brie = "Aged Brie"
   private val maxQuality = 50
+  private val expired = 0
 
   fun updateQuality() {
     for (item in items) {
-      if (item.name == SULFURAS)
+      if (item.name == sulfuras)
         continue
 
-      if (item.name != BRIE && item.name != BACKSTAGE_PASS) {
+      if (item.name != brie && item.name != backstagePass) {
         decreaseItemQuality(item)
       } else {
         increaseItemQuality(item)
@@ -20,11 +21,12 @@ class GildedRose(var items: Array<Item>) {
 
       decreaseSellIn(item)
 
-      if (item.sellIn < 0) {
-        if (item.name != BRIE) {
-          decreaseItemQuality(item)
-        } else {
+
+      if (item.sellIn < expired) {
+        if (item.name == brie) {
           increaseItemQuality(item)
+        } else {
+          decreaseItemQuality(item)
         }
       }
     }
@@ -48,14 +50,14 @@ class GildedRose(var items: Array<Item>) {
     if (item.quality < maxQuality) {
       item.quality += 1
 
-      if (item.name == BACKSTAGE_PASS) {
+      if (item.name == backstagePass) {
         increaseBackstageQuality(item)
       }
     }
   }
 
   private fun decreaseItemQuality(item: Item) {
-    if (item.name == BACKSTAGE_PASS) {
+    if (item.name == backstagePass) {
       item.quality = 0
       return
     }
