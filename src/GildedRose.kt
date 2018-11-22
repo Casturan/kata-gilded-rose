@@ -38,11 +38,11 @@ class GildedRose(var items: Array<Item>) {
   }
 
   private fun increaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.min(maxQuality, item.quality + amount)
+    item.quality = Math.min(maxQuality, item.quality + (1 * amount))
   }
 
   private fun decreaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.max(minQuality, item.quality - amount)
+    item.quality = Math.max(minQuality, item.quality - (1 * amount))
   }
 
   private fun decreaseSellIn(item: Item) {
