@@ -12,10 +12,10 @@ class GildedRose(var items: Array<Item>) {
       if (item.name == sulfuras)
         continue
 
-      if (item.name != brie && item.name != backstagePass) {
-        decreaseItemQuality(item)
-      } else {
+      if (item.name == brie || item.name == backstagePass) {
         increaseItemQuality(item)
+      } else {
+        decreaseItemQuality(item)
       }
 
       decreaseSellIn(item)
