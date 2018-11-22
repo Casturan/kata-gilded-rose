@@ -9,6 +9,9 @@ class GildedRose(var items: Array<Item>) {
 
   fun updateQuality() {
     for (item in items) {
+      if (item.name == sulfuras)
+        continue
+
       if (item.name != agedBrie && item.name != backstagePass) {
         decreaseItemQuality(item)
       } else {
