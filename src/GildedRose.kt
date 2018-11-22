@@ -10,6 +10,8 @@ class GildedRose(var items: Array<Item>) {
     for (item in items) {
       if (item.name == sulfuras)
         continue
+      
+      decreaseSellIn(item)
 
       when {
         item.name == brie -> increaseItemQuality(item)
@@ -17,7 +19,6 @@ class GildedRose(var items: Array<Item>) {
         else -> decreaseItemQuality(item)
       }
 
-      decreaseSellIn(item)
 
       if (isExpired(item)) {
         if (item.name == brie) {
@@ -32,8 +33,8 @@ class GildedRose(var items: Array<Item>) {
   private fun isExpired(item: Item) = item.sellIn < 0
 
   private fun increaseBackstageQuality(item: Item) {
-    val doubleQualityThreshold = 10
-    val tripleQualityThreshold = 5
+    val doubleQualityThreshold = 9
+    val tripleQualityThreshold = 4
 
     increaseItemQuality(item)
 
