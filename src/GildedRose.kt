@@ -10,9 +10,8 @@ class GildedRose(var items: Array<Item>) {
     for (item in items) {
       if (item.name != agedBrie && item.name != backstagePass) {
 
-        if (item.quality > 0) {
-          decreaseItemQuality(item)
-        }
+
+        decreaseItemQuality(item)
 
       } else {
 
@@ -37,9 +36,7 @@ class GildedRose(var items: Array<Item>) {
       if (item.sellIn < 0) {
         if (item.name != agedBrie) {
           if (item.name != backstagePass) {
-            if (item.quality > 0) {
-              decreaseItemQuality(item)
-            }
+            decreaseItemQuality(item)
           } else {
             item.quality -= item.quality
           }
@@ -58,7 +55,7 @@ class GildedRose(var items: Array<Item>) {
   }
 
   private fun decreaseItemQuality(item: Item) {
-    if (item.name != sulfuras) {
+    if (item.name != sulfuras && item.quality > 0) {
       item.quality = item.quality - 1
     }
   }
