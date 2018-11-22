@@ -18,7 +18,7 @@ class GildedRose(var items: Array<Item>) {
   }
 
   fun updateQuality() {
-    items.filter { item -> item.name != sulfuras }
+    items.filter { it.name != sulfuras }
         .forEach { item ->
           decreaseSellIn(item)
           when (item.name) {
