@@ -5,17 +5,21 @@ class GildedRose(var items: Array<Item>) {
   private val backstagePass = "Backstage passes to a TAFKAL80ETC concert"
   private val sulfuras = "Sulfuras, Hand of Ragnaros"
   private val agedBrie = "Aged Brie"
+  private val maxQuality = 50
 
   fun updateQuality() {
     for (item in items) {
       if (item.name != agedBrie && item.name != backstagePass) {
         decreaseItemQuality(item)
-      } else if (item.quality < 50) {
-          item.quality = item.quality + 1
+      } else {
 
-          if (item.name == backstagePass) {
-            increaseBackstageQuality(item)
-          }
+        if (item.quality < maxQuality) {
+            item.quality = item.quality + 1
+
+            if (item.name == backstagePass) {
+              increaseBackstageQuality(item)
+            }
+        }
       }
 
       decreaseSellIn(item)
@@ -46,7 +50,7 @@ class GildedRose(var items: Array<Item>) {
   }
 
   private fun increaseItemQuality(item: Item) {
-    if (item.quality < 50) {
+    if (item.quality < maxQuality) {
       item.quality = item.quality + 1
     }
   }
