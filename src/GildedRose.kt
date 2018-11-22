@@ -22,11 +22,7 @@ class GildedRose(var items: Array<Item>) {
 
       if (item.sellIn < 0) {
         if (item.name != BRIE) {
-          if (item.name != BACKSTAGE_PASS) {
-            decreaseItemQuality(item)
-          } else {
-            item.quality = 0
-          }
+          decreaseItemQuality(item)
         } else {
           increaseItemQuality(item)
         }
@@ -59,6 +55,10 @@ class GildedRose(var items: Array<Item>) {
   }
 
   private fun decreaseItemQuality(item: Item) {
+    if (item.name == BACKSTAGE_PASS) {
+      item.quality = 0
+      return
+    }
     if (item.quality > 0) {
       item.quality -= 1
     }
