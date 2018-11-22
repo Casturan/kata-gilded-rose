@@ -13,15 +13,18 @@ class GildedRose(var items: Array<Item>) {
 
       decreaseSellIn(item)
 
+      if (item.name == backstagePass) {
+        updateBackstageQuality(item)
+        continue
+      }
+
       when {
         item.name == brie -> increaseItemQuality(item)
-        item.name == backstagePass -> updateBackstageQuality(item)
         else -> decreaseItemQuality(item)
       }
       if (isExpired(item)) {
         when {
           item.name == brie -> increaseItemQuality(item)
-          item.name == backstagePass -> updateBackstageQuality(item)
           else -> decreaseItemQuality(item)
         }
       }
