@@ -5,6 +5,7 @@ class GildedRose(var items: Array<Item>) {
   private val sulfuras = "Sulfuras, Hand of Ragnaros"
   private val brie = "Aged Brie"
   private val maxQuality = 50
+  private val minQuality = 0
 
   fun updateQuality() {
     for (item in items) {
@@ -31,7 +32,7 @@ class GildedRose(var items: Array<Item>) {
 
   private fun updateBackstageQuality(item: Item) {
     if (isExpired(item)) {
-      item.quality = 0
+      item.quality = minQuality
       return
     }
 
@@ -50,11 +51,11 @@ class GildedRose(var items: Array<Item>) {
   }
 
   private fun increaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.min(50, item.quality + amount)
+    item.quality = Math.min(maxQuality, item.quality + amount)
   }
 
   private fun decreaseItemQuality(item: Item, amount: Int) {
-    item.quality = Math.max(0, item.quality - amount)
+    item.quality = Math.max(minQuality, item.quality - amount)
   }
 
   private fun decreaseSellIn(item: Item) {
