@@ -6,6 +6,8 @@ class GildedRose(var items: Array<Item>) {
   private val brie = "Aged Brie"
   private val maxQuality = 50
   private val minQuality = 0
+  private val doubleQualityThreshold = 10
+  private val tripleQualityThreshold = 5
 
   fun updateQuality() {
     items.filter { it.name != sulfuras }
@@ -26,22 +28,13 @@ class GildedRose(var items: Array<Item>) {
   private fun updateBackstageQuality(item: Item) {
     if (isExpired(item)) {
       item.quality = minQuality
-      return
-    }
-
-    val doubleQualityThreshold = 10
-    val tripleQualityThreshold = 5
-
-    val amount: Int
-
-    if (item.sellIn < tripleQualityThreshold) {
-      amount = 3
-    } else if (item.sellIn < doubleQualityThreshold) {
-      amount = 2
     } else {
-      amount = 1
+      increaseItemQuality(item, when {
+        item.sellIn < tripleQualityThreshold -> 3
+        item.sellIn < doubleQualityThreshold -> 2
+        else -> 1
+      })
     }
-    increaseItemQuality(item, amount)
   }
 
   private fun increaseItemQuality(item: Item, amount: Int) {
