@@ -28,10 +28,9 @@ class GildedRose(var items: Array<Item>) {
   fun updateQuality() {
     for (item in items) {
       when(item.name) {
-        sulfuras -> sulfurasLogic(item)
         brie -> brieLogic(item)
         backstagePass -> backstagePassLogic(item)
-        else -> defaultItemLogic(item)
+        !in sulfuras -> defaultItemLogic(item)
       }
     }
   }
