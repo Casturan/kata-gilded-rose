@@ -11,14 +11,11 @@ class GildedRose(var items: Array<Item>) {
     for (item in items) {
       if (item.name != agedBrie && item.name != backstagePass) {
         decreaseItemQuality(item)
-      } else {
+      } else if (item.quality < maxQuality) {
+        item.quality = item.quality + 1
 
-        if (item.quality < maxQuality) {
-            item.quality = item.quality + 1
-
-            if (item.name == backstagePass) {
-              increaseBackstageQuality(item)
-            }
+        if (item.name == backstagePass) {
+          increaseBackstageQuality(item)
         }
       }
 
