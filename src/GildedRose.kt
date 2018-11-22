@@ -22,7 +22,6 @@ class GildedRose(var items: Array<Item>) {
 
       decreaseSellIn(item)
 
-
       if (isExpired(item)) {
         if (item.name == brie) {
           increaseItemQuality(item)
@@ -57,9 +56,7 @@ class GildedRose(var items: Array<Item>) {
   private fun decreaseItemQuality(item: Item) {
     if (item.name == backstagePass) {
       item.quality = 0
-      return
-    }
-    if (item.quality > 0) {
+    } else if (item.quality > 0) {
       item.quality -= 1
     }
   }
