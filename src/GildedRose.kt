@@ -1,7 +1,6 @@
 package com.gildedrose
 
 class GildedRose(var items: Array<Item>) {
-
   private val backstagePass = "Backstage passes to a TAFKAL80ETC concert"
   private val sulfuras = "Sulfuras, Hand of Ragnaros"
   private val brie = "Aged Brie"
@@ -34,13 +33,16 @@ class GildedRose(var items: Array<Item>) {
   private fun isExpired(item: Item) = item.sellIn < 0
 
   private fun increaseBackstageQuality(item: Item) {
-    if (item.sellIn <= 10) {
+    val doubleQualityThreshold = 10
+    val tripleQualityThreshold = 5
+
+    if (item.sellIn <= doubleQualityThreshold) {
       if (item.quality < maxQuality) {
         item.quality += 1
       }
     }
 
-    if (item.sellIn <= 5) {
+    if (item.sellIn <= tripleQualityThreshold) {
       if (item.quality < maxQuality) {
         item.quality += 1
       }
