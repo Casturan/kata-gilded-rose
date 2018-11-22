@@ -7,24 +7,31 @@ class GildedRose(var items: Array<Item>) {
   private val maxQuality = 50
   private val minQuality = 0
 
+  private fun sulfurasLogic(item: Item) {
+
+  }
+  private fun brieLogic(item: Item) {
+    decreaseSellIn(item)
+    val amount = if (isExpired(item)) 2 else 1
+    increaseItemQuality(item, amount)
+  }
+  private fun backstagePassLogic(item: Item) {
+    decreaseSellIn(item)
+    updateBackstageQuality(item)
+  }
+  private fun defaultItemLogic(item: Item) {
+    decreaseSellIn(item)
+    val amount = if (isExpired(item)) 2 else 1
+    decreaseItemQuality(item, amount)
+  }
+
   fun updateQuality() {
     for (item in items) {
-      if (item.name == sulfuras)
-        continue
-
-      decreaseSellIn(item)
-
-      if (item.name == backstagePass) {
-        updateBackstageQuality(item)
-        continue
-      }
-
-      val amount = if (isExpired(item)) 2 else 1
-
-      if (brie == item.name) {
-        increaseItemQuality(item, amount)
-      } else {
-        decreaseItemQuality(item, amount)
+      when(item.name) {
+        sulfuras -> sulfurasLogic(item)
+        brie -> brieLogic(item)
+        backstagePass -> backstagePassLogic(item)
+        else -> defaultItemLogic(item)
       }
     }
   }
