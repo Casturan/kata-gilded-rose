@@ -15,13 +15,13 @@ class GildedRose(var items: Array<Item>) {
 
       when {
         item.name == brie -> increaseItemQuality(item)
-        item.name == backstagePass -> increaseBackstageQuality(item)
+        item.name == backstagePass -> updateBackstageQuality(item)
         else -> decreaseItemQuality(item)
       }
       if (isExpired(item)) {
         when {
           item.name == brie -> increaseItemQuality(item)
-          item.name == backstagePass -> item.quality = 0
+          item.name == backstagePass -> updateBackstageQuality(item)
           else -> decreaseItemQuality(item)
         }
       }
@@ -30,7 +30,12 @@ class GildedRose(var items: Array<Item>) {
 
   private fun isExpired(item: Item) = item.sellIn < 0
 
-  private fun increaseBackstageQuality(item: Item) {
+  private fun updateBackstageQuality(item: Item) {
+    if (isExpired(item)) {
+      item.quality = 0
+      return
+    }
+
     val doubleQualityThreshold = 10
     val tripleQualityThreshold = 5
 
