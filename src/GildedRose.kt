@@ -12,11 +12,6 @@ class GildedRose(var items: Array<Item>) {
     increaseItemQuality(item, amount)
   }
 
-  private fun backstagePassLogic(item: Item) {
-
-    updateBackstageQuality(item)
-  }
-
   private fun defaultItemLogic(item: Item) {
     val amount = if (isExpired(item)) 2 else 1
     decreaseItemQuality(item, amount)
@@ -28,7 +23,7 @@ class GildedRose(var items: Array<Item>) {
           decreaseSellIn(item)
           when (item.name) {
             brie -> brieLogic(item)
-            backstagePass -> backstagePassLogic(item)
+            backstagePass -> updateBackstageQuality(item)
             else -> defaultItemLogic(item)
           }
         }
