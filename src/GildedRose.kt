@@ -49,7 +49,7 @@ class GildedRose(var items: Array<Item>) {
 
   private fun increaseItemQuality(item: Item) {
     if (item.quality < maxQuality) {
-      item.quality += 1
+      item.quality++
     }
   }
 
@@ -57,12 +57,12 @@ class GildedRose(var items: Array<Item>) {
     if (item.name == backstagePass) {
       item.quality = 0
     } else if (item.quality > 0) {
-      item.quality -= 1
+      item.quality--
     }
   }
 
   private fun decreaseSellIn(item: Item) {
-    item.sellIn -= 1
+    item.sellIn--
   }
 
 }
