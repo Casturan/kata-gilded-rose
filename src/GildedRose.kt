@@ -7,27 +7,19 @@ class GildedRose(var items: Array<Item>) {
   private val maxQuality = 50
   private val minQuality = 0
 
-  private fun brieLogic(item: Item) {
-    val amount = if (isExpired(item)) 2 else 1
-    increaseItemQuality(item, amount)
-  }
-
-  private fun defaultItemLogic(item: Item) {
-    val amount = if (isExpired(item)) 2 else 1
-    decreaseItemQuality(item, amount)
-  }
-
   fun updateQuality() {
     items.filter { it.name != sulfuras }
         .forEach { item ->
           decreaseSellIn(item)
           when (item.name) {
-            brie -> brieLogic(item)
+            brie -> increaseItemQuality(item, calculateChangeAmount(item))
             backstagePass -> updateBackstageQuality(item)
-            else -> defaultItemLogic(item)
+            else -> decreaseItemQuality(item, calculateChangeAmount(item))
           }
         }
   }
+
+  private fun calculateChangeAmount(item: Item) = if (isExpired(item)) 2 else 1
 
   private fun isExpired(item: Item) = item.sellIn < 0
 
@@ -40,15 +32,16 @@ class GildedRose(var items: Array<Item>) {
     val doubleQualityThreshold = 10
     val tripleQualityThreshold = 5
 
-    increaseItemQuality(item, 1)
+    val amount: Int
 
-    if (item.sellIn < doubleQualityThreshold) {
-      increaseItemQuality(item, 1)
-
-      if (item.sellIn < tripleQualityThreshold) {
-        increaseItemQuality(item, 1)
-      }
+    if (item.sellIn < tripleQualityThreshold) {
+      amount = 3
+    } else if (item.sellIn < doubleQualityThreshold) {
+      amount = 2
+    } else {
+      amount = 1
     }
+    increaseItemQuality(item, amount)
   }
 
   private fun increaseItemQuality(item: Item, amount: Int) {
