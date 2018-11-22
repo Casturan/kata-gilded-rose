@@ -21,9 +21,10 @@ class GildedRose(var items: Array<Item>) {
 
       val amount = if (isExpired(item)) 2 else 1
 
-      when (brie) {
-        item.name -> increaseItemQuality(item, amount)
-        else -> decreaseItemQuality(item, amount)
+      if (brie == item.name) {
+        increaseItemQuality(item, amount)
+      } else {
+        decreaseItemQuality(item, amount)
       }
     }
   }
