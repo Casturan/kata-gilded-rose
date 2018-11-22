@@ -40,15 +40,11 @@ class GildedRose(var items: Array<Item>) {
     val tripleQualityThreshold = 5
 
     if (item.sellIn <= doubleQualityThreshold) {
-      if (item.quality < maxQuality) {
-        item.quality += 1
-      }
+      increaseItemQuality(item)
     }
 
     if (item.sellIn <= tripleQualityThreshold) {
-      if (item.quality < maxQuality) {
-        item.quality += 1
-      }
+      increaseItemQuality(item)
     }
   }
 
