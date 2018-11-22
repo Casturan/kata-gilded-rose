@@ -6,7 +6,6 @@ class GildedRose(var items: Array<Item>) {
   private val sulfuras = "Sulfuras, Hand of Ragnaros"
   private val brie = "Aged Brie"
   private val maxQuality = 50
-  private val expired = 0
 
   fun updateQuality() {
     for (item in items) {
@@ -22,7 +21,7 @@ class GildedRose(var items: Array<Item>) {
       decreaseSellIn(item)
 
 
-      if (item.sellIn < expired) {
+      if (isExpired(item)) {
         if (item.name == brie) {
           increaseItemQuality(item)
         } else {
@@ -31,6 +30,8 @@ class GildedRose(var items: Array<Item>) {
       }
     }
   }
+
+  private fun isExpired(item: Item) = item.sellIn < 0
 
   private fun increaseBackstageQuality(item: Item) {
     if (item.sellIn < 11) {
