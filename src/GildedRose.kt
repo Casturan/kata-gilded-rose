@@ -11,11 +11,11 @@ class GildedRose(var items: Array<Item>) {
       if (item.name == sulfuras)
         continue
 
-      if (item.name == brie || item.name == backstagePass) {
+      if (item.name == brie) {
         increaseItemQuality(item)
-        if (item.name == backstagePass) {
-          increaseBackstageQuality(item)
-        }
+
+      } else if (item.name == backstagePass) {
+        increaseBackstageQuality(item)
       } else {
         decreaseItemQuality(item)
       }
@@ -37,6 +37,8 @@ class GildedRose(var items: Array<Item>) {
   private fun increaseBackstageQuality(item: Item) {
     val doubleQualityThreshold = 10
     val tripleQualityThreshold = 5
+
+    increaseItemQuality(item)
 
     if (item.sellIn <= doubleQualityThreshold) {
       increaseItemQuality(item)
