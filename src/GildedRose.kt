@@ -18,10 +18,7 @@ class GildedRose(var items: Array<Item>) {
         continue
       }
 
-      var amount = 1
-      if (isExpired(item)) {
-        amount = 2
-      }
+      val amount = if (isExpired(item)) 2 else 1
 
       when {
         item.name == brie -> increaseItemQuality(item, amount)
