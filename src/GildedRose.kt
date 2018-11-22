@@ -11,9 +11,7 @@ class GildedRose(var items: Array<Item>) {
       if (item.name != agedBrie && item.name != backstagePass) {
 
         if (item.quality > 0) {
-          if (item.name != sulfuras) {
-            item.quality = item.quality - 1
-          }
+          decreaseItemQuality(item)
         }
 
       } else {
@@ -23,45 +21,45 @@ class GildedRose(var items: Array<Item>) {
 
           if (item.name == backstagePass) {
             if (item.sellIn < 11) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1
-              }
+              increaseItemQuality(item)
             }
 
             if (item.sellIn < 6) {
-              if (item.quality < 50) {
-                item.quality = item.quality + 1
-              }
+              increaseItemQuality(item)
             }
           }
         }
 
       }
 
-
-
       decreaseSellIn(item)
-
-
 
       if (item.sellIn < 0) {
         if (item.name != agedBrie) {
           if (item.name != backstagePass) {
             if (item.quality > 0) {
-              if (item.name != sulfuras) {
-                item.quality = item.quality - 1
-              }
+              decreaseItemQuality(item)
             }
           } else {
             item.quality -= item.quality
           }
         } else {
-          if (item.quality < 50) {
-            item.quality = item.quality + 1
-          }
+          increaseItemQuality(item)
         }
       }
 
+    }
+  }
+
+  private fun increaseItemQuality(item: Item) {
+    if (item.quality < 50) {
+      item.quality = item.quality + 1
+    }
+  }
+
+  private fun decreaseItemQuality(item: Item) {
+    if (item.name != sulfuras) {
+      item.quality = item.quality - 1
     }
   }
 
