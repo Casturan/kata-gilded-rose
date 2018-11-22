@@ -13,6 +13,9 @@ class GildedRose(var items: Array<Item>) {
 
       if (item.name == brie || item.name == backstagePass) {
         increaseItemQuality(item)
+        if (item.name == backstagePass) {
+          increaseBackstageQuality(item)
+        }
       } else {
         decreaseItemQuality(item)
       }
@@ -52,10 +55,6 @@ class GildedRose(var items: Array<Item>) {
   private fun increaseItemQuality(item: Item) {
     if (item.quality < maxQuality) {
       item.quality += 1
-
-      if (item.name == backstagePass) {
-        increaseBackstageQuality(item)
-      }
     }
   }
 
