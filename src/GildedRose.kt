@@ -34,13 +34,13 @@ class GildedRose(var items: Array<Item>) {
   private fun isExpired(item: Item) = item.sellIn < 0
 
   private fun increaseBackstageQuality(item: Item) {
-    if (item.sellIn < 11) {
+    if (item.sellIn <= 10) {
       if (item.quality < maxQuality) {
         item.quality += 1
       }
     }
 
-    if (item.sellIn < 6) {
+    if (item.sellIn <= 5) {
       if (item.quality < maxQuality) {
         item.quality += 1
       }
