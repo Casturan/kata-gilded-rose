@@ -24,14 +24,8 @@ class GildedRose(var items: Array<Item>) {
       }
 
       when {
-        item.name == brie -> increaseItemQuality(item)
-        else -> decreaseItemQuality(item)
-      }
-      if (isExpired(item)) {
-        when {
-          item.name == brie -> increaseItemQuality(item)
-          else -> decreaseItemQuality(item)
-        }
+        item.name == brie -> increaseItemQuality(item, amount)
+        else -> decreaseItemQuality(item, amount)
       }
     }
   }
@@ -47,27 +41,23 @@ class GildedRose(var items: Array<Item>) {
     val doubleQualityThreshold = 10
     val tripleQualityThreshold = 5
 
-    increaseItemQuality(item)
+    increaseItemQuality(item, 1)
 
     if (item.sellIn < doubleQualityThreshold) {
-      increaseItemQuality(item)
+      increaseItemQuality(item, 1)
 
       if (item.sellIn < tripleQualityThreshold) {
-        increaseItemQuality(item)
+        increaseItemQuality(item, 1)
       }
     }
   }
 
-  private fun increaseItemQuality(item: Item) {
-    if (item.quality < maxQuality) {
-      item.quality++
-    }
+  private fun increaseItemQuality(item: Item, amount: Int) {
+    item.quality = Math.min(50, item.quality + amount)
   }
 
-  private fun decreaseItemQuality(item: Item) {
-    if (item.quality > 0) {
-      item.quality--
-    }
+  private fun decreaseItemQuality(item: Item, amount: Int) {
+    item.quality = Math.max(0, item.quality - amount)
   }
 
   private fun decreaseSellIn(item: Item) {
