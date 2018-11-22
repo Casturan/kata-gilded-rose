@@ -40,10 +40,10 @@ class GildedRose(var items: Array<Item>) {
 
     if (item.sellIn <= doubleQualityThreshold) {
       increaseItemQuality(item)
-    }
 
-    if (item.sellIn <= tripleQualityThreshold) {
-      increaseItemQuality(item)
+      if (item.sellIn <= tripleQualityThreshold) {
+        increaseItemQuality(item)
+      }
     }
   }
 
