@@ -26,7 +26,7 @@ class GildedRose(var items: Array<Item>) {
           if (item.name != backstagePass) {
             decreaseItemQuality(item)
           } else {
-            item.quality -= item.quality
+            item.quality = 0
           }
         } else {
           increaseItemQuality(item)
